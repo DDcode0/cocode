@@ -11,7 +11,7 @@ if __name__ == "__main__": # Verificamos que este archivo es el que se está eje
     app.run(debug=True) # Levantamos el servidor con Flask en modo debug
 
 """
-
+import os
 from app import create_app
 from app.routes import personas_bp  # Importar el Blueprint
 
