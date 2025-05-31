@@ -1,20 +1,24 @@
 #!/usr/bin/env bash
-# render-build.sh
-#!/usr/bin/env bash
-set -e   # aborta si algo falla
+set -euxo pipefail
+export DEBIAN_FRONTEND=noninteractive   # evita prompts interactivos
 
-echo "➜ Instalando ODBC Driver 18 …"
-apt-get update -qq
+# 1️⃣   Arreglar el bug del directorio de listas
+sudo rm -rf /var/lib/apt/lists          || true
+sudo mkdir -p /var/lib/apt/lists/partial
 
-# herramientas básicas
-apt-get install -y --no-install-recommends curl gnupg ca-certificates
+# 2️⃣   Refrescar índices
+sudo apt-get update -y
 
-# clave y repo oficiales de Microsoft
-curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-curl -sSL https://packages.microsoft.com/config/debian/12/prod.list \
-  | tee /etc/apt/sources.list.d/mssql-release.list
+# 3️⃣   Dependencias básicas
+sudo apt-get install -y curl gnupg lsb-release unixodbc-dev
 
-apt-get update -qq
-ACCEPT_EULA=Y apt-get install -y msodbcsql18 unixodbc-dev
+# 4️⃣   Clave y repo de Microsoft ODBC Driver 18
+curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+DISTRO=$(lsb_release -cs)
+curl -sSL https://packages.microsoft.com/config/debian/"$DISTRO"/prod.list \
+  | sudo tee /etc/apt/sources.list.d/mssql-release.list
 
-echo "✓ ODBC instalado"
+sudo apt-get update -y
+sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18
+
+echo "✅  ODBC Driver 18 instalado."
