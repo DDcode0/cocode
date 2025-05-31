@@ -7,6 +7,7 @@ DB_CONFIG = {
     'username': 'cocode_Presidente',    # Usuario de SQL Server
     'password': 'cocode_Gest!ion'      # Contraseña del usuario
 }"""
+import os
 
 import logging
 from flask_cors import CORS
@@ -22,7 +23,10 @@ def create_app():
 
 
     # Configuración de la base de datos
-    app.config['SQLALCHEMY_DATABASE_URI'] = "mssql+pyodbc://cocode_Presidente:cocode_Gest!ion@localhost\\SQLEXPRESS/COCODE_Gestion?driver=ODBC+Driver+17+for+SQL+Server"
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or \
+        "mssql+pyodbc://admincocode:cocode_Gest!ion@cocode-server-2025.database.windows.net:1433/cocode-db?driver=ODBC+Driver+17+for+SQL+Server"
+
+
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Desactivar alertas innecesarias
 
     # Inicializar extensiones

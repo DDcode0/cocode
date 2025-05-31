@@ -20,8 +20,9 @@ app = create_app()
 # Registrar el Blueprint para las rutas de personas
 #app.register_blueprint(personas_bp, url_prefix='/api')  # Prefijo opcional '/api'
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000)
+
     
     
 
