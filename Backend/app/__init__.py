@@ -23,8 +23,10 @@ def create_app():
 
 
     # Configuración de la base de datos
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or \
-        "mssql+pyodbc://admincocode:cocode_Gest!ion@cocode-server-2025.database.windows.net:1433/cocode-db?driver=ODBC+Driver+17+for+SQL+Server"
+    app.config['SQLALCHEMY_DATABASE_URI'] = (
+    "mssql+pytds://admincocode:cocode_Gest!ion"
+    "@cocode-server-2025.database.windows.net:1433/cocode-db"
+)
 
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Desactivar alertas innecesarias
