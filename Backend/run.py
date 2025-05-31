@@ -13,13 +13,8 @@ if __name__ == "__main__": # Verificamos que este archivo es el que se está eje
 """
 import os
 from app import create_app
-from app.routes import personas_bp  # Importar el Blueprint
 
 app = create_app()
-
-# Registrar el Blueprint para las rutas de personas
-#app.register_blueprint(personas_bp, url_prefix='/api')  # Prefijo opcional '/api'
-
 
 @app.route('/')
 def home():
@@ -28,8 +23,6 @@ def home():
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
 
-
-    
     
 
 
