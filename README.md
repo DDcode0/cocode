@@ -27,7 +27,7 @@ El backend expone puntos finales REST usando Flask mientras que el frontend se c
    - `DB_PW`
 4. Ejecute el backend localmente:
    ```bash
-   Python Backend/run.py
+   python Backend/run.py
    # o
    gunicorn wsgi:app
    ```
@@ -39,8 +39,9 @@ El backend expone puntos finales REST usando Flask mientras que el frontend se c
 
 ## Implementando en [ Render ]( https://render.com/ )
 
-1. Cree un **Servicio web** que apunte a `Backend/` .
-2. Render construirá la imagen usando el `Dockerfile` incluido (``env: docker``).
+1. Create a **Web Service** from this repository (do not set a subdirectory).
+   Si se establece `Backend/` como raíz del servicio, Render omitirá la compilación del Dockerfile y aparecerá el error de `gunicorn` faltante.
+2. Render detectará automáticamente `render.yaml` y construirá la imagen Docker con `env: docker`; no necesita definir un comando de compilación.
 3. No se necesita un comando de compilación para el backend. En `render.yaml` defina:
    ```bash
    startCommand: gunicorn wsgi:app
@@ -71,13 +72,13 @@ This repository contains a Flask backend and a React frontend.
 `render.yaml` in the repository root defines both services so Render can automatically set them up:
 
 ### Backend web service
-- **Build:** Render uses the included `Dockerfile` to build the service (`env: docker`); no separate build command is required.
+- **Build:** Render automatically uses `render.yaml` and the included `Dockerfile` to build the service (`env: docker`); no separate build command is required.
 ```yaml
 startCommand: gunicorn wsgi:app
 ```
 - **Environment variables:** `DB_DRIVER`, `DB_SERVER`, `DB_NAME`, `DB_USER`, `DB_PW`
 
-Create a new **Web Service** from this repo in Render and set the values for the variables above to connect to your database.
+Create a new **Web Service** from this repo in Render and set the values for the variables above to connect to your database. Setting the service root to `Backend/` bypasses the Docker build and results in a `gunicorn` not found error.
 
 ### Frontend static site
 - **Build:** `npm install && npm run build`
