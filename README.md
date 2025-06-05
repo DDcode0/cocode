@@ -39,10 +39,10 @@ El backend expone puntos finales REST usando Flask mientras que el frontend se c
 
 ## Implementando en [ Render ]( https://render.com/ )
 
-1. Create a **Web Service** from this repository (do not set a subdirectory).
-   Si se establece `Backend/` como raíz del servicio, Render omitirá la compilación del Dockerfile y aparecerá el error de `gunicorn` faltante.
-2. Render detectará automáticamente `render.yaml` y construirá la imagen Docker con `env: docker`; no necesita definir un comando de compilación.
-3. No se necesita un comando de compilación para el backend. En `render.yaml` defina:
+1. Cree un **Web Service** a partir de este repositorio **usando la raíz del repositorio** para que Render pueda leer `render.yaml`.
+   Si se usa `Backend/` como directorio del servicio o se especifica un comando de compilación, la fase Docker se omite y aparece el error de `gunicorn` faltante.
+2. Deje vacío el campo **Build Command**. Render detectará `render.yaml` y construirá la imagen Docker con `env: docker`.
+3. No se necesita ningún comando de compilación para el backend. En `render.yaml` defina:
    ```bash
    startCommand: gunicorn wsgi:app
    ```
@@ -72,13 +72,13 @@ This repository contains a Flask backend and a React frontend.
 `render.yaml` in the repository root defines both services so Render can automatically set them up:
 
 ### Backend web service
-- **Build:** Render automatically uses `render.yaml` and the included `Dockerfile` to build the service (`env: docker`); no separate build command is required.
+- **Build:** Leave the **Build Command** blank. Render reads `render.yaml` in the repository root and automatically builds with `env: docker` using the provided `Dockerfile`.
 ```yaml
 startCommand: gunicorn wsgi:app
 ```
 - **Environment variables:** `DB_DRIVER`, `DB_SERVER`, `DB_NAME`, `DB_USER`, `DB_PW`
 
-Create a new **Web Service** from this repo in Render and set the values for the variables above to connect to your database. Setting the service root to `Backend/` bypasses the Docker build and results in a `gunicorn` not found error.
+Create a new **Web Service** from this repo (pointing to the repo root) and set the values for the variables above to connect to your database. If you set `Backend/` as the service root or define a build command, the Docker build is skipped and a `gunicorn` not found error occurs.
 
 ### Frontend static site
 - **Build:** `npm install && npm run build`
