@@ -1,4 +1,2 @@
-*.log
-app/__pycache__/
-app/utils/__pycache__/
-system.log
+Backend/ aplicación /**/ __pycache__/
+*.pyc
