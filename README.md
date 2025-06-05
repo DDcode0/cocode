@@ -39,10 +39,7 @@ El backend expone puntos finales REST usando Flask mientras que el frontend se c
 ## Implementando en [ Render ]( https://render.com/ )
 
 1. Cree un **Servicio web** que apunte a `Backend/` .
-2. Utilice este comando de compilación:
-   ``golpe
-   bash render-build.sh y pip install -r requisitos.txt
-   ```
+2. Render construirá la imagen usando el `Dockerfile` incluido (``env: docker``).
 3. Establezca el comando de inicio en:
    ``golpe
    gunicorn wsgi:app
@@ -70,10 +67,10 @@ This repository contains a Flask backend and a React frontend.
 
 ## Deployment on Render
 
-`render.yaml` defines two services so the project can be deployed easily:
+`render.yaml` in the repository root defines both services so Render can automatically set them up:
 
 ### Backend web service
-- **Build:** `bash Backend/render-build.sh && pip install -r Backend/requirements.txt`
+- **Build:** Render uses the included `Dockerfile` to build the service (`env: docker`)
 - **Start:** `gunicorn wsgi:app`
 - **Environment variables:** `DB_DRIVER`, `DB_SERVER`, `DB_NAME`, `DB_USER`, `DB_PW`
 
