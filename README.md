@@ -6,6 +6,7 @@ Este repositorio contiene un backend de Flask y un frontend de React. La distrib
 ```
 Backend/ - Código API de Flask
 frontend/ - Aplicación React
+render.yaml - Configuración para Render
 ```
 
 El backend expone puntos finales REST usando Flask mientras que el frontend se construye con Create React App.
