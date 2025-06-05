@@ -1,0 +1,4 @@
+*.log
+app/__pycache__/
+app/utils/__pycache__/
+system.log

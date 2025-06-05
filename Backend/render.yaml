@@ -1,8 +1,8 @@
 services:
   - type: web
     name: backend
-    env: python
-    buildCommand: bash Backend/render-build.sh && pip install -r Backend/requirements.txt
+    env: docker
+    dockerfilePath: Dockerfile
     startCommand: gunicorn wsgi:app
     envVars:
       - key: DB_DRIVER
