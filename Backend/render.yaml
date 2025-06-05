@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: backend
+    env: python
+    buildCommand: bash Backend/render-build.sh && pip install -r Backend/requirements.txt
+    startCommand: gunicorn wsgi:app
+    envVars:
+      - key: DB_DRIVER
+      - key: DB_SERVER
+      - key: DB_NAME
+      - key: DB_USER
+      - key: DB_PW
+  - type: static
+    name: frontend
+    buildCommand: npm install && npm run build
+    publishPath: frontend/build
