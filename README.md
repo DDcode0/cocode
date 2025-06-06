@@ -84,4 +84,6 @@ Create a new **Web Service** from this repo (pointing to the repo root) and set 
 - **Build:** `npm install && npm run build`
 - **Publish directory:** `frontend/build`
 
+
+
 Render will automatically deploy the static site defined in `render.yaml`.
