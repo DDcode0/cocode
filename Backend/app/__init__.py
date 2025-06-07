@@ -18,7 +18,8 @@ from app.routes import (
 
 def create_app() -> Flask:
     app = Flask(__name__)
-    CORS(app, resources={r"/api/*": {"origins": "*"}})
+   # Permite peticiones solo desde tu frontend en producción:
+    CORS(app, origins=["https://frontend-cocode.onrender.com"])
 
     # ---------- conexión a Azure SQL vía ODBC ----------
     DRIVER = os.getenv("DB_DRIVER", "ODBC Driver 18 for SQL Server")
