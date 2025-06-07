@@ -150,12 +150,7 @@ const Dashboard = () => {
                         </tbody>
                     </table>
 
-                    <button
-                        className="btn btn-primary mt-4"
-                        onClick={() => generarPDF(personasConDerechos, cuotas, { ingresos, egresos, saldo })}
-                    >
-                        Generar PDF
-                    </button>
+                    
                 </div>
 
                 
